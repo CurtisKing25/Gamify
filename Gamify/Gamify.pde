@@ -1,24 +1,30 @@
+//Global Variables are initialised first
+
+int screen = 2; //Default screen
+String typed = ""; //Word currently being typed
+String [] quests = new String[20]; //Array of quests to go on screen
+String[] empty = {}; //empty array for resetting .txt files
+String[] savedQuests = new String[20]; //Array of saved quests from .txt file
+String[] previousNumber = new String[1]; //Array of saved quest number from .txt file
+PrintWriter output; //Used to open the .txt files if they don't exist
+
+int questNumber = 0; //Used to index quests
+boolean typing = false;
+
 void setup()
 {
-  size(275,544); //for developing
-  //fullScreen(); //for Android
+  //size(275,544); //for developing
+  fullScreen(); //for Android
   textAlign(CENTER);
-  textSize(height/25);
-  for(int i=0;i<quests.length;i++) quests[i] = "";
+  textSize(height/25); //Scales Font decently, using width might be better for future?
+  for(int i=0;i<quests.length;i++) quests[i] = ""; //Ensures screen is empty and null won't display
 }
 
-int screen = 2;
-String typed = "";
-String [] quests = new String[10];
-String[] empty = {};
-String[] savedQuests = new String[10];
-String[] previousNumber = new String[10];
 
-int questNumber = 0;
-boolean typing = false;
 
 void draw()
 {
+  //Decides method called, eventually I will make them seperate classes when I increase functionality
   if (screen==0) skillTree();
   else if (screen==1) rewards();
   else if (screen==2) quests();
@@ -29,12 +35,12 @@ void mousePressed()
 {
   if(mouseY<height*0.9 && mouseY>height*0.6)
   {
-    //openKeyboard(); //for android
+    openKeyboard(); //for android
     typing = true;
   }
   else if(mouseY<height*0.6)
   {
-    //closeKeyboard(); //for android
+    closeKeyboard(); //for android
     typing = false;
   }
   if(!typing)
@@ -57,35 +63,42 @@ void quests()
   fill(0);
   text("Quests",width/2,height*0.2);
   text(typed,width/2,height*0.3);
-  try 
-  {
+  //Loads string array from file
     savedQuests = loadStrings("quests.txt");
-  } 
-  catch (Exception e) 
-  {
-    saveStrings("quests.txt", empty);
-    savedQuests = loadStrings("quests.txt");
-  }
-  try 
-  {
+    //if it doesn't exist
+    if(savedQuests==null)
+    {
+      //Creates the file
+      output = createWriter("quests.txt");
+      //closes the writer
+      output.close();
+      //Loads array
+      savedQuests = loadStrings("quests.txt");
+    }
+    //Same again
    previousNumber = loadStrings("questNumber.txt");
-  } 
-  catch (Exception e) 
-  {
-    saveStrings("questNumber.txt", empty);
+   if(previousNumber==null)
+   {
+    output = createWriter("questNumber.txt");
+    //closes the writer if not closed
+    output.close();
     previousNumber = loadStrings("questNumber.txt");
-  }
-  //println(savedQuests.length);
-  //println(savedQuests[0]);
+   }
+   //if there is any text
   if(savedQuests.length>0)
   {
+    //while there's text in the file and space to move them
     for(int i=0;i<quests.length&& i<savedQuests.length;i++)
     {
+      //if not null, move
       if(savedQuests[i]!="null")quests[i] = savedQuests[i];
+      //show empty string
       else quests[i] = "";
     }
+    //if you're not on the first index, update index
     if(Integer.parseInt(previousNumber[0])>0)questNumber = Integer.parseInt(previousNumber[0]);
   }
+  //prints quests
   for(int i=0;i<quests.length;i++)
   {
   text(quests[i],width/2,height/2+(i*(height*0.04)));
@@ -129,23 +142,28 @@ void level()
   text("Level",width/2,height*0.2);
 }
 
+//Starting to implement basic keyboard functionality, the method keyTyped may be more effective for PC but not sure about phone?
 void keyPressed()
 {
   if(screen==2)
   {
+    //Slices off last letter
     if(keyCode==BACKSPACE)
     {
       if(typed.length()>0)typed = typed.substring(0,typed.length()-1);
     }
     
+    //clears all data
     else if(key == '1')
     {
       typed = "";
       saveStrings("quests.txt",empty);
       saveStrings("questNumber.txt",empty);
+      questNumber = 0;
       for(int i=0;i<quests.length;i++)quests[i]="";
     }
     
+    //Clears current word and saves it to .txt files
     else if(keyCode==ENTER)
     {
       questNumber++;
@@ -156,6 +174,7 @@ void keyPressed()
       saveStrings("questNumber.txt",questNum);
     }
     
+    //Adds to the current word
     else if(key != CODED) typed+=key;
   }
 }
