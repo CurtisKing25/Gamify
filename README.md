@@ -2,7 +2,7 @@
 An app I am developing to make your life an RPG so you can reach your goals and level up.
 
 Step 1:(DONE) to make a basic UI for the user to navigate between the menus
-Step 2: I will make an andriod friendly way to save the content such as quests(to do lists) thinking .txt file
+Step 2: (DONE) I will make an andriod friendly way to save the content such as quests(to do lists) thinking .txt file
 Step 3: Make a Notion inspired checklist system for the quests
 Step 4: Develop the other screens to make SkillTrees and Levels that Quests contribute to
 Step 5: Make a rewards system so the user can continue to motivate themselves and celebrate their acomplishments
