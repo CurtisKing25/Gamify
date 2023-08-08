@@ -10,6 +10,6 @@ Step 6: Refine the app further. I am think questlines that allow the user to bre
 
 I intend for this project to be a mental health/life admin guide that is fun to use and lets people stay of task instead of getting distracted by their phones on social media,games,etc.
 
-In future, I may port this to a different langauge if Processing doesn't give me enough control of the phon hardware
+In future, I may port this to a different langauge if Processing doesn't give me enough control of the phone hardware
 
 I hope to put this on the playstore and the Apple app store if I port it to a language that allows for apple development
