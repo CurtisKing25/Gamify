@@ -9,8 +9,8 @@ Profile Profile = new Profile();
 
 void setup()
 {
-  size(275, 544); //for developing
-  //fullScreen(); //for Android
+  //size(275, 544); //for developing
+  fullScreen(); //for Android
   textAlign(CENTER);
   textSize(height/25); //Scales Font decently, using width might be better for future?
 

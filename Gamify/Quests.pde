@@ -113,12 +113,12 @@ class Quests
   {
     if(mouseY<height*0.9 && mouseY>height*0.6)
     {
-      //openKeyboard(); //for android
+      openKeyboard(); //for android
       typing = true;
     }
     else if(mouseY<height*0.6)
     {
-      //closeKeyboard(); //for android
+      closeKeyboard(); //for android
       typing = false;
     }
     if(!typing)
