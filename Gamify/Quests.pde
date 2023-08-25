@@ -9,6 +9,7 @@ class Quests
   PrintWriter output; //Used to open the .txt files if they don't exist
   int questNumber = 0; //Used to index quests
   boolean typing = false;
+  String [] randomQuests = {"code in Python","TypeRacer","Go on a hike","Go on a run","Workout","Meditate","LeetCode"};
 
    void setup()
   {
@@ -18,12 +19,18 @@ class Quests
   void show()
   {
     background(255);
+    fill(255);
+    rect(0,0,width*0.4,height*0.0625);
+    fill(0);
+    textSize(width*0.05);
+    textAlign(LEFT);
+    text("Random Quest!",width*0.005,height*0.04);
+    textAlign(CENTER);
     line(width*0.25,height*0.9,width*0.25,height);
     line(width*0.5,height*0.9,width*0.5,height);
     line(width*0.75,height*0.9,width*0.75,height);
     line(0,height*0.9,width,height*0.9);
     rect(width*0.5,height*0.9,width*0.25,height);
-    fill(0);
     text("Quests",width/2,height*0.2);
     text(typed,width/2,height*0.3);
     //Loads string array from file
@@ -113,12 +120,12 @@ class Quests
   {
     if(mouseY<height*0.9 && mouseY>height*0.6)
     {
-      openKeyboard(); //for android
+      //openKeyboard(); //for android
       typing = true;
     }
     else if(mouseY<height*0.6)
     {
-      closeKeyboard(); //for android
+      //closeKeyboard(); //for android
       typing = false;
     }
     if(!typing)
@@ -128,5 +135,20 @@ class Quests
       else if(mouseY>height*0.9 && mouseX>width*0.5 && mouseX<width*0.75) screen = 2;
       else if(mouseY>height*0.9 && mouseX>width*0.75 && mouseX<width) screen = 3;
     }
+  }
+  
+  void mousePressed()
+  {
+    if(Button.press(0,0,width*0.4,height*0.0625))randomQuest();
+  }
+  
+  void randomQuest()
+  {
+    questNumber++;
+    quests[questNumber] = randomQuests[int(random(randomQuests.length))];
+    String []questNum = {""+questNumber};
+    saveStrings("quests.txt",quests);
+    saveStrings("questNumber.txt",questNum);
+    println(randomQuests.length);
   }
 }

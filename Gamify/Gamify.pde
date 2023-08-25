@@ -1,4 +1,4 @@
-//Global Variables are initialised first
+ //Global Variables are initialised first
 int screen = 2; //Default screen
 
 //Initialse classes
@@ -6,11 +6,12 @@ SkillTree SkillTree = new SkillTree();
 Quests Quests = new Quests();
 Rewards Rewards = new Rewards();
 Profile Profile = new Profile();
+Button Button = new Button();
 
 void setup()
 {
-  //size(275, 544); //for developing
-  fullScreen(); //for Android
+  size(275, 544); //for developing
+  //fullScreen(); //for Android
   textAlign(CENTER);
   textSize(height/25); //Scales Font decently, using width might be better for future?
 
@@ -43,7 +44,11 @@ void mousePressed()
     }
   }
 
-  if (screen==2) Quests.toggleKeyboard();
+  if (screen==2) 
+  {
+    Quests.toggleKeyboard();
+    Quests.mousePressed();
+  }
 }
 
 //Starting to implement basic keyboard functionality, the method keyTyped may be more effective for PC but not sure about phone?
